@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTourism Elite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:linear-gradient(135deg,#e8fdf0,#c8facc);
+  color:#222;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+header{
+  background:#0f3d1e;
+  padding:20px 0;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 5px 25px rgba(0,0,0,0.3);
+}
+
+header h1{
+  color:white;
+  text-align:center;
+  letter-spacing:2px;
+}
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-top:10px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#90ee90;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:url("webdesigning/kerala.jpg") center/cover no-repeat fixed;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.hero h1,.hero p,.hero button{
+  position:relative;
+  z-index:1;
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s;
+}
+
+.hero.show h1,
+.hero.show p,
+.hero.show button{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.hero h1{font-size:3.5rem;}
+.hero p{margin:20px 0;font-size:1.2rem;}
+
+.hero button{
+  padding:14px 35px;
+  border:none;
+  border-radius:40px;
+  background:#2e8b57;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:600;
+}
+
+.hero button:hover{
+  transform:scale(1.1);
+  background:#145a32;
+}
+
+/* SECTION */
+section{
+  padding:90px 10%;
+  text-align:center;
+}
+
+section h2{
+  margin-bottom:40px;
+  font-size:2.2rem;
+  color:#145a32;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* CARDS */
+.cards,.package-container,.testimonial-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:35px;
+  justify-content:center;
+}
+
+.card,.package-card,.testimonial{
+  width:280px;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.2);
+  transition:0.4s;
+}
+
+.card:hover,.package-card:hover,.testimonial:hover{
+  transform:translateY(-15px) scale(1.05);
+}
+
+.card img,.gallery img{
+  width:100%;
+  border-radius:15px;
+}
+
+/* PACKAGE FEATURES */
+.package-card ul{
+  text-align:left;
+  margin-top:10px;
+  font-size:0.9rem;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.gallery img{
+  transition:0.4s;
+  cursor:pointer;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+.gallery img:hover{
+  transform:scale(1.1);
+}
+
+/* WHY US */
+.why{
+  background:white;
+  border-radius:20px;
+  padding:50px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* CONTACT */
+form{
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input,textarea{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+form button{
+  padding:14px;
+  border:none;
+  border-radius:40px;
+  background:#2e8b57;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+form button:hover{
+  background:#145a32;
+}
+
+/* FOOTER */
+footer{
+  background:#0f3d1e;
+  color:white;
+  padding:25px;
+  text-align:center;
+  margin-top:40px;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+}
+
+.close-btn{
+  float:right;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>EcoTourism Elite 🌿</h1>
+<nav>
+<a href="#about">About</a>
+<a href="#destinations">Destinations</a>
+<a href="#packages">Packages</a>
+<a href="#gallery">Gallery</a>
+<a href="#testimonials">Reviews</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<div class="hero">
+<h1>Explore Nature in Luxury</h1>
+<p>Premium Eco Experiences Across India</p>
+<button onclick="openModal()">Book Now</button>
+</div>
+
+<section id="about" class="reveal">
+<h2>About Us</h2>
+<p>EcoTourism Elite is dedicated to sustainable travel experiences that preserve the environment, empower local communities, and provide luxury comfort. We believe tourism should protect nature, not harm it.</p>
+</section>
+
+<section id="destinations" class="reveal">
+<h2>Top Destinations</h2>
+<div class="cards">
+<div class="card">
+<img src="webdesigning/kerala.jpg">
+<h3>Kerala Backwaters</h3>
+<p>Houseboats, greenery & peaceful lagoons.</p>
+</div>
+<div class="card">
+<img src="webdesigning/ranthambore.jpg">
+<h3>Ranthambore</h3>
+<p>Thrilling tiger safari adventures.</p>
+</div>
+<div class="card">
+<img src="webdesigning/sundarbans.jpg">
+<h3>Sundarbans</h3>
+<p>Mangrove forests & rich wildlife.</p>
+</div>
+</div>
+</section>
+
+<section id="packages" class="reveal">
+<h2>Luxury Packages</h2>
+<div class="package-container">
+<div class="package-card">
+<h3>Kerala Escape</h3>
+<p>₹25,000</p>
+<ul>
+<li>5 Days Stay</li>
+<li>Luxury Houseboat</li>
+<li>Guided Nature Walk</li>
+</ul>
+<button onclick="openModal()">Book</button>
+</div>
+
+<div class="package-card">
+<h3>Wildlife Retreat</h3>
+<p>₹13,500</p>
+<ul>
+<li>3 Days Safari</li>
+<li>Eco Resort Stay</li>
+<li>Forest Guide</li>
+</ul>
+<button onclick="openModal()">Book</button>
+</div>
+
+<div class="package-card">
+<h3>Island Adventure</h3>
+<p>₹20,000</p>
+<ul>
+<li>7 Days Stay</li>
+<li>Beach Camping</li>
+<li>Snorkeling</li>
+</ul>
+<button onclick="openModal()">Book</button>
+</div>
+</div>
+</section>
+
+<section id="gallery" class="reveal">
+<h2>Gallery</h2>
+<div class="gallery">
+<img src="webdesigning/kerala.jpg">
+<img src="webdesigning/sundarbans.jpg">
+<img src="webdesigning/taj.jpg">
+<img src="webdesigning/andaman.jpg">
+</div>
+</section>
+
+<section id="testimonials" class="reveal">
+<h2>Traveler Reviews</h2>
+<div class="testimonial-container">
+<div class="testimonial">
+<p>"Amazing eco experience and luxury stay!"</p>
+<h4>- Sherry John</h4>
+</div>
+<div class="testimonial">
+<p>"Best wildlife safari ever!"</p>
+<h4>- Adithyan K S</h4>
+</div>
+<div class="testimonial">
+<p>"Beautiful destinations and great service."</p>
+<h4>- Arjun C Hariharan</h4>
+</div>
+</div>
+</section>
+
+<section id="contact" class="reveal">
+<h2>Contact Us</h2>
+<form>
+<input type="text" placeholder="Enter Your Name">
+<input type="email" placeholder="Enter Your Email">
+<textarea rows="4" placeholder="Message"></textarea>
+<button type="submit">Send Message</button>
+</form>
+</section>
+
+<footer>
+<p>© 2026 EcoTourism Elite | Kannan P B</p>
+</footer>
+
+<div id="bookingModal" class="modal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeModal()">✖</span>
+<h2>Book Your Tour</h2>
+<input type="text" placeholder="Full Name">
+<input type="email" placeholder="Email">
+<button>Confirm Booking</button>
+</div>
+</div>
+
+<script>
+window.addEventListener("load",()=>{
+document.querySelector(".hero").classList.add("show");
+});
+
+function openModal(){
+document.getElementById("bookingModal").style.display="flex";
+}
+function closeModal(){
+document.getElementById("bookingModal").style.display="none";
+}
+
+const reveals=document.querySelectorAll(".reveal");
+window.addEventListener("scroll",()=>{
+reveals.forEach(el=>{
+const windowHeight=window.innerHeight;
+const elementTop=el.getBoundingClientRect().top;
+if(elementTop<windowHeight-100){
+el.classList.add("active");
+}
+});
+});
+</script>
+
+</body>
+</html>
